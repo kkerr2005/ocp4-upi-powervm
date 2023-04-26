@@ -62,14 +62,9 @@ variable "openstack_availability_zone" {
 
 variable "bastion" {
   default = {
-    "count"         = 1
-    "instance_type" = "tiny"
-    "image_id"      = "ff640374-17bf-498e-8e83-d6388df6f31e"
-    # optional availability_zone
-    # availability_zone = ""
-    # optional fixed IP address
-    # fixed_ip_v4   = "123.45.67.89"
-    # fixed_ips = []
+    count         = 1
+    instance_type = "tiny"
+    image_id      = "ff640374-17bf-498e-8e83-d6388df6f31e"
   }
 }
 
