@@ -65,7 +65,7 @@ variable "bastion" {
     count         = 1
     instance_type = "tiny"
     image_id      = "ff640374-17bf-498e-8e83-d6388df6f31e"
-    
+    x = ""
     # optional availability_zone
     # availability_zone = ""
     # optional fixed IP address
