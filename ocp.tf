@@ -36,7 +36,7 @@ resource "random_id" "label" {
 locals {
   # Generates cluster_id as combination of cluster_id_prefix + (random_id or user-defined cluster_id)
   cluster_id   = var.cluster_id == "" ? random_id.label[0].hex : (var.cluster_id_prefix == "" ? var.cluster_id : "${var.cluster_id_prefix}-${var.cluster_id}")
-  storage_type = lookup(var.bascount, 1) > 1 ? "none" : var.storage_type
+  storage_type = lookup(var.bastion,"count", 1) > 1 ? "none" : var.storage_type
 }
 
 module "bastion" {
@@ -44,9 +44,7 @@ module "bastion" {
 
   cluster_domain                  = var.cluster_domain
   cluster_id                      = local.cluster_id
-  bastioncount                    = var.bascount
-  bastiontype                     = var.bastype
-  bastionid                       = var.basid
+  bastion                         = var.bastion
   bastion_port_ids                = module.network.bastion_port_ids
   scg_id                          = var.scg_id
   openstack_availability_zone     = var.openstack_availability_zone

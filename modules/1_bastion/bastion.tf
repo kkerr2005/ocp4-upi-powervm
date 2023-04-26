@@ -19,7 +19,7 @@
 ################################################################
 
 locals {
-  bastion_count = lookup(var.bastioncount)
+  bastion_count = lookup(var.bastion,"count",1)
 }
 
 resource "openstack_compute_keypair_v2" "key-pair" {
