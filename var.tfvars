@@ -1,5 +1,5 @@
 ### PowerVC Details
-auth_url                    = "https://192.168.200.217"
+auth_url                    = "https://192.168.200.217:5000/v3/"
 user_name                   = "root"
 password                    = "Bluechip123!"
 tenant_name                 = "OCPPOC"
@@ -26,8 +26,9 @@ public_key_file                 = "data/id_rsa.pub"
 private_key_file                = "data/id_rsa"
 rhel_subscription_username      = "<subscription-id>"       #Leave this as-is if using CentOS as bastion image
 rhel_subscription_password      = "<subscription-password>" #Leave this as-is if using CentOS as bastion image
-rhel_subscription_org           = ""                        # Define it only when using activationkey for RHEL subscription
-rhel_subscription_activationkey = ""                        # Define it only when using activationkey for RHEL subscription
+rhel_subscription_org           = "13114873"                        # Define it only when using activationkey for RHEL subscription
+rhel_subscription_activationkey = "RHEL"                        # Define it only when using activationkey for RHEL subscription
+keypair_name = "ocpuser"
 
 connection_timeout = 45
 jump_host          = ""
