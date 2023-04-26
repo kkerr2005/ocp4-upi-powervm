@@ -4,7 +4,7 @@ user_name                   = "root"
 password                    = "Bluechip123!"
 tenant_name                 = "OCPPOC"
 domain_name                 = "Default"
-openstack_availability_zone = "regionone"
+openstack_availability_zone = ""
 
 network_name = "vlan_513"
 
