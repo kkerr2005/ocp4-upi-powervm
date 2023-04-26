@@ -1,16 +1,16 @@
 ### PowerVC Details
-auth_url                    = "<https://<HOSTNAME>:5000/v3/>"
-user_name                   = "<powervc-login-user-name>"
-password                    = "<powervc-login-user-password>"
-tenant_name                 = "<tenant_name>"
+auth_url                    = "https://192.168.200.217"
+user_name                   = "root"
+password                    = "Bluechip123!"
+tenant_name                 = "OCPPOC"
 domain_name                 = "Default"
-openstack_availability_zone = ""
+openstack_availability_zone = "regionone"
 
-network_name = "<network_name>"
+network_name = "vlan_513"
 
 ### OpenShift Cluster Details
 
-bastion   = { instance_type = "<bastion-compute-template>", image_id = "<image-uuid-rhel>", "count" = 1 }
+bastion   = { instance_type = "b1e93fc9-dcc7-47ce-9aee-d4e5f57e8e6f", image_id = "ff640374-17bf-498e-8e83-d6388df6f31e", "count" = 1 }
 bootstrap = { instance_type = "<bootstrap-compute-template>", image_id = "<image-uuid-rhcos>", "count" = 1 }
 master    = { instance_type = "<master-compute-template>", image_id = "<image-uuid-rhcos>", "count" = 3 }
 worker    = { instance_type = "<worker-compute-template>", image_id = "<image-uuid-rhcos>", "count" = 2 }
