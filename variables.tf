@@ -63,7 +63,7 @@ variable "openstack_availability_zone" {
 variable "bastion" {
   default = {
     count         = 1
-    instance_type = "b1e93fc9-dcc7-47ce-9aee-d4e5f57e8e6f"
+    instance_type = "m1.xlarge"
     image_id      = "ff640374-17bf-498e-8e83-d6388df6f31e"
     # optional availability_zone
     # availability_zone = ""
