@@ -40,7 +40,7 @@ locals {
 }
 
 module "bastion" {
-  source = "./modules/1_bastion"
+  source = "github.com/kkerr2005/ocp4-upi-powervm/tree/main/modules/1_bastion"
 
   cluster_domain                  = var.cluster_domain
   cluster_id                      = local.cluster_id
@@ -69,7 +69,7 @@ module "bastion" {
 }
 
 module "network" {
-  source = "./modules/2_network"
+  source = "github.com/kkerr2005/ocp4-upi-powervm/tree/main/modules/2_network"
 
   cluster_id              = local.cluster_id
   network_name            = var.network_name
@@ -83,7 +83,7 @@ module "network" {
 }
 
 module "helpernode" {
-  source = "./modules/3_helpernode"
+  source = "github.com/kkerr2005/ocp4-upi-powervm/tree/main/modules/3_helpernode"
 
   cluster_domain            = var.cluster_domain
   cluster_id                = local.cluster_id
@@ -121,7 +121,7 @@ module "helpernode" {
 
 module "installconfig" {
   depends_on = [module.helpernode]
-  source     = "./modules/5_install/5_1_installconfig"
+  source     = "github.com/kkerr2005/ocp4-upi-powervm/tree/main/modules/5_install/5_1_installconfig"
 
   cluster_domain             = var.cluster_domain
   cluster_id                 = local.cluster_id
@@ -185,7 +185,7 @@ module "installconfig" {
 }
 
 module "bootstrapnode" {
-  source = "./modules/4_nodes/4_1_bootstrapnode"
+  source = "github.com/kkerr2005/ocp4-upi-powervm/tree/main/modules/4_nodes/4_1_bootstrapnode"
 
   bastion_ip                  = module.network.bastion_vip == "" ? module.bastion.bastion_ip[0] : module.network.bastion_vip
   cluster_id                  = local.cluster_id
@@ -198,7 +198,7 @@ module "bootstrapnode" {
 
 module "bootstrapconfig" {
   depends_on = [module.bootstrapnode]
-  source     = "./modules/5_install/5_2_bootstrapconfig"
+  source     = "github.com/kkerr2005/ocp4-upi-powervm/tree/main/modules/5_install/5_2_bootstrapconfig"
 
   bastion_ip            = module.bastion.bastion_ip
   rhel_username         = var.rhel_username
@@ -225,7 +225,7 @@ module "masternodes" {
 
 module "bootstrapcomplete" {
   depends_on = [module.masternodes]
-  source     = "./modules/5_install/5_3_bootstrapcomplete"
+  source     = "github.com/kkerr2005/ocp4-upi-powervm/tree/main/modules/5_install/5_3_bootstrapcomplete"
 
   bastion_ip            = module.bastion.bastion_ip
   rhel_username         = var.rhel_username
@@ -237,7 +237,7 @@ module "bootstrapcomplete" {
 }
 
 module "workernodes" {
-  source = "./modules/4_nodes/4_3_workernodes"
+  source = "github.com/kkerr2005/ocp4-upi-powervm/tree/main/modules/4_nodes/4_3_workernodes"
 
   bastion_ip                  = module.network.bastion_vip == "" ? module.bastion.bastion_ip[0] : module.network.bastion_vip
   cluster_id                  = local.cluster_id
@@ -255,7 +255,7 @@ module "workernodes" {
 }
 module "install" {
   depends_on = [module.helpernode, module.installconfig, module.workernodes]
-  source     = "./modules/5_install/5_4_installcomplete"
+  source     = "github.com/kkerr2005/ocp4-upi-powervm/tree/main/modules/5_install/5_4_installcomplete"
 
   cluster_domain        = var.cluster_domain
   cluster_id            = local.cluster_id
