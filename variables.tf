@@ -23,17 +23,17 @@
 ################################################################
 variable "user_name" {
   description = "The user name used to connect to OpenStack/PowerVC"
-  default     = "my_user_name"
+  default     = "root"
 }
 
 variable "password" {
   description = "The password for the user"
-  default     = "my_password"
+  default     = "Bluechip123!"
 }
 
 variable "tenant_name" {
   description = "The name of the project (a.k.a. tenant) used"
-  default     = "ibm-default"
+  default     = "OCPPOC"
 }
 
 variable "domain_name" {
@@ -43,7 +43,7 @@ variable "domain_name" {
 
 variable "auth_url" {
   description = "The endpoint URL used to connect to OpenStack/PowerVC"
-  default     = "https://<HOSTNAME>:5000/v3/"
+  default     = "https://192.168.200.217:5000/v3/"
 }
 
 variable "insecure" {
@@ -63,8 +63,8 @@ variable "openstack_availability_zone" {
 variable "bastion" {
   default = {
     count         = 1
-    instance_type = "m1.xlarge"
-    image_id      = "daa5d3f4-ab66-4b2d-9f3d-77bd61774419"
+    instance_type = "tiny"
+    image_id      = "ff640374-17bf-498e-8e83-d6388df6f31e"
     # optional availability_zone
     # availability_zone = ""
     # optional fixed IP address
@@ -120,7 +120,7 @@ variable "worker" {
 
 variable "network_name" {
   description = "The name of the network to be used for deploy operations"
-  default     = "my_network_name"
+  default     = "vlan_513"
 }
 
 variable "network_type" {
@@ -157,19 +157,19 @@ variable "rhel_username" {
 variable "keypair_name" {
   # Set this variable to the name of an already generated
   # keypair to use it instead of creating a new one.
-  default = ""
+  default = "ocpuser"
 }
 
 variable "public_key_file" {
   description = "Path to public key file"
   # if empty, will default to ${path.cwd}/data/id_rsa.pub
-  default = ""
+  default = "data/id_rsa.pub"
 }
 
 variable "private_key_file" {
   description = "Path to private key file"
   # if empty, will default to ${path.cwd}/data/id_rsa
-  default = ""
+  default = "data/id_rsa"
 }
 
 variable "private_key" {
@@ -193,11 +193,11 @@ variable "rhel_subscription_password" {
 }
 
 variable "rhel_subscription_org" {
-  default = ""
+  default = "13114873"
 }
 
 variable "rhel_subscription_activationkey" {
-  default = ""
+  default = "RHEL"
 }
 
 variable "rhcos_pre_kernel_options" {
