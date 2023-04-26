@@ -24,7 +24,9 @@ variable "cluster_domain" {
 variable "cluster_id" {
   default = "test-ocp"
 }
-variable "bastion" {}
+variable "bastiontype" {}
+variable "bastionid" {}
+variable "bastioncount" {}
 variable "bastion_port_ids" {}
 
 variable "scg_id" {}
