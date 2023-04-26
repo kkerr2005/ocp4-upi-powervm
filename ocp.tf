@@ -47,7 +47,7 @@ module "bastion" {
   bastioncount                    = var.bascount
   bastiontype                     = var.bastype
   bastionid                       = var.basid
-  bastion_port_ids                = module.network.bastion_port_ids
+  #bastion_port_ids                = module.network.bastion_port_ids
   scg_id                          = var.scg_id
   openstack_availability_zone     = var.openstack_availability_zone
   rhel_username                   = var.rhel_username
