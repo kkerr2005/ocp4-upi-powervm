@@ -47,7 +47,7 @@ module "bastion" {
   bastioncount                    = var.bascount
   bastiontype                     = var.bastype
   bastionid                       = var.basid
-  #bastion_port_ids                = module.network.bastion_port_ids
+  bastion_port_ids                = module.network.bastion_port_ids
   scg_id                          = var.scg_id
   openstack_availability_zone     = var.openstack_availability_zone
   rhel_username                   = var.rhel_username
@@ -68,4 +68,18 @@ module "bastion" {
   volume_storage_template         = var.volume_storage_template
   setup_squid_proxy               = var.setup_squid_proxy
   proxy                           = var.proxy
+}
+
+module "network" {
+  source = "github.com/kkerr2005/ocp4-upi-powervm/modules/2_network"
+
+  cluster_id              = local.cluster_id
+  network_name            = var.network_name
+  bastion                 = var.bastion
+  bootstrap               = var.bootstrap
+  master                  = var.master
+  worker                  = var.worker
+  network_type            = var.network_type
+  sriov_vnic_failover_vfs = var.sriov_vnic_failover_vfs
+  sriov_capacity          = var.sriov_capacity
 }
