@@ -19,7 +19,7 @@
 ################################################################
 
 locals {
-  bastion_count = lookup(var.bastion, "count", 1)
+  bastion_count = lookup(var.bastioncount)
 }
 
 resource "openstack_compute_keypair_v2" "key-pair" {
@@ -47,14 +47,14 @@ resource "openstack_compute_flavor_v2" "bastion_scg" {
 }
 
 data "openstack_compute_flavor_v2" "bastion" {
-  name = var.bastion["instance_type"]
+  name = var.bastiontype
 }
 
 resource "openstack_compute_instance_v2" "bastion" {
   count = local.bastion_count
 
   name      = "${var.cluster_id}-bastion-${count.index}"
-  image_id  = var.bastion["image_id"]
+  image_id  = var.bastionid
   flavor_id = var.scg_id == "" ? data.openstack_compute_flavor_v2.bastion.id : openstack_compute_flavor_v2.bastion_scg[0].id
   key_pair  = openstack_compute_keypair_v2.key-pair.0.name
   network {
