@@ -36,15 +36,17 @@ resource "random_id" "label" {
 locals {
   # Generates cluster_id as combination of cluster_id_prefix + (random_id or user-defined cluster_id)
   cluster_id   = var.cluster_id == "" ? random_id.label[0].hex : (var.cluster_id_prefix == "" ? var.cluster_id : "${var.cluster_id_prefix}-${var.cluster_id}")
-  storage_type = lookup(var.bastion, "count", 1) > 1 ? "none" : var.storage_type
+  storage_type = var.bastioncount > 1 ? "none" : var.storage_type
 }
 
 module "bastion" {
-  source = "./modules/1_bastion"
+  source = "github.com/kkerr2005/ocp4-upi-powervm/modules/1_bastion"
 
   cluster_domain                  = var.cluster_domain
   cluster_id                      = local.cluster_id
-  bastion                         = var.bastion
+  bastioncount                         = var.bastioncount
+  bastiontype                     = var.bastiontype
+  bastionimageid                  = var.bastionimageid
   bastion_port_ids                = module.network.bastion_port_ids
   scg_id                          = var.scg_id
   openstack_availability_zone     = var.openstack_availability_zone
@@ -69,7 +71,7 @@ module "bastion" {
 }
 
 module "network" {
-  source = "./modules/2_network"
+  source = "github.com/kkerr2005/ocp4-upi-powervm/modules/2_network"
 
   cluster_id              = local.cluster_id
   network_name            = var.network_name
@@ -83,7 +85,7 @@ module "network" {
 }
 
 module "helpernode" {
-  source = "./modules/3_helpernode"
+  source = "github.com/kkerr2005/ocp4-upi-powervm/modules/3_helpernode"
 
   cluster_domain            = var.cluster_domain
   cluster_id                = local.cluster_id
@@ -121,7 +123,7 @@ module "helpernode" {
 
 module "installconfig" {
   depends_on = [module.helpernode]
-  source     = "./modules/5_install/5_1_installconfig"
+  source     = "github.com/kkerr2005/ocp4-upi-powervm/modules/5_install/5_1_installconfig"
 
   cluster_domain             = var.cluster_domain
   cluster_id                 = local.cluster_id
@@ -185,7 +187,7 @@ module "installconfig" {
 }
 
 module "bootstrapnode" {
-  source = "./modules/4_nodes/4_1_bootstrapnode"
+  source = "github.com/kkerr2005/ocp4-upi-powervm/modules/4_nodes/4_1_bootstrapnode"
 
   bastion_ip                  = module.network.bastion_vip == "" ? module.bastion.bastion_ip[0] : module.network.bastion_vip
   cluster_id                  = local.cluster_id
@@ -198,7 +200,7 @@ module "bootstrapnode" {
 
 module "bootstrapconfig" {
   depends_on = [module.bootstrapnode]
-  source     = "./modules/5_install/5_2_bootstrapconfig"
+  source     = "github.com/kkerr2005/ocp4-upi-powervm/modules/5_install/5_2_bootstrapconfig"
 
   bastion_ip            = module.bastion.bastion_ip
   rhel_username         = var.rhel_username
@@ -211,7 +213,7 @@ module "bootstrapconfig" {
 
 
 module "masternodes" {
-  source = "./modules/4_nodes/4_2_masternodes"
+  source = "github.com/kkerr2005/ocp4-upi-powervm/modules/4_nodes/4_2_masternodes"
 
   bastion_ip                  = module.network.bastion_vip == "" ? module.bastion.bastion_ip[0] : module.network.bastion_vip
   cluster_id                  = local.cluster_id
@@ -225,7 +227,7 @@ module "masternodes" {
 
 module "bootstrapcomplete" {
   depends_on = [module.masternodes]
-  source     = "./modules/5_install/5_3_bootstrapcomplete"
+  source     = "github.com/kkerr2005/ocp4-upi-powervm/modules/5_install/5_3_bootstrapcomplete"
 
   bastion_ip            = module.bastion.bastion_ip
   rhel_username         = var.rhel_username
@@ -237,7 +239,7 @@ module "bootstrapcomplete" {
 }
 
 module "workernodes" {
-  source = "./modules/4_nodes/4_3_workernodes"
+  source = "github.com/kkerr2005/ocp4-upi-powervm/modules/4_nodes/4_3_workernodes"
 
   bastion_ip                  = module.network.bastion_vip == "" ? module.bastion.bastion_ip[0] : module.network.bastion_vip
   cluster_id                  = local.cluster_id
@@ -255,7 +257,7 @@ module "workernodes" {
 }
 module "install" {
   depends_on = [module.helpernode, module.installconfig, module.workernodes]
-  source     = "./modules/5_install/5_4_installcomplete"
+  source     = "github.com/kkerr2005/ocp4-upi-powervm/modules/5_install/5_4_installcomplete"
 
   cluster_domain        = var.cluster_domain
   cluster_id            = local.cluster_id

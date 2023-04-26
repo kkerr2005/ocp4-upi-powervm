@@ -60,23 +60,23 @@ variable "openstack_availability_zone" {
 # Configure the Instance details
 ################################################################
 
-variable "bastion" {
-  default = {
-    count=1
-    instance_type="tiny"
-    image_id="ff640374-17bf-498e-8e83-d6388df6f31e"
-  }
-}
+# variable "bastion" {
+#   default = {
+#     count=1
+#     instance_type="tiny"
+#     image_id="ff640374-17bf-498e-8e83-d6388df6f31e"
+#   }
+# }
 
-# variable "bascount"{
-#   default = 1
-# }
-# variable "bastype"{
-#   default = "tiny"
-# }
-# variable "basid"{
-#   default = "ff640374-17bf-498e-8e83-d6388df6f31e"
-# }
+variable "bastioncount"{
+  default = 1
+}
+variable "bastiontype"{
+  default = "tiny"
+}
+variable "bastionimageid"{
+  default = "ff640374-17bf-498e-8e83-d6388df6f31e"
+}
 
 variable "network_name" {
   description = "The name of the network to be used for deploy operations"
