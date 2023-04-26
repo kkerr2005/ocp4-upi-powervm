@@ -17,14 +17,6 @@
 # limitations under the License.
 #
 ################################################################
-terraform {
-  required_providers {
-    openstack = {
-      source = "terraform-provider-openstack/openstack"
-      version = "1.51.1"
-    }
-  }
-}
 
 provider "openstack" {
   user_name   = var.user_name
